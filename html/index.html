@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Patrick Nagel">
+
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="./css/simple-sidebar.css">
+        <link rel="stylesheet" type="text/css" href="./css/index.css">
+        <title>Home</title>
+    </head>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <a href="#" class="navbar-brand">
+              <strong>RoboLand Interface</strong>
+            </a>
+            <ul class="navbar-nav bd-navbar-nav flex-row mr-md-auto">
+   
+            </ul>
+            <ul class="navbar-nav bd-navbar-nav flex-row mr-3">
+                <li class="nav-item dropdown">
+                    
+                </li>
+            </ul>
+      </nav>
+    </header>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="list-group list-group-flush">
+                  <a class="nav-link" href="/">
+                    <span data-feather="home"></span> Home
+                  </a>
+                </div>
+              </div>
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="page-content">
+                        <h2>Live Stream</h2>
+                        <div class="row row-gr">
+                            <a-scene class="aframebox" embedded>                                
+                                <a-assets>
+                                    <video id="videoPlayer" autoplay loop crossorigin="anonymous"  playsinline webkit-playsinline></video>
+                                </a-assets>
+                                <a-videosphere rotation="0 270 0" src="#videoPlayer" ></a-videosphere> 
+                                
+                                <a-camera user-height="0" 
+                                    wasd-controls="acceleration:100"
+                                    look-controls
+                                    reverse-mouse-drag="true"
+                                    fov="90"
+                                    position="0 1.6 0"
+                                    arrow-key-rotation>
+                                </a-camera>
+                            </a-scene>
+                        </div>
+                        <div class="row row-gr">
+                            <hr>
+                        </div>
+                        <div class="row row-gr">
+                            <div class="col-md-5 mb-3">
+                                <label for="protocol">Protocol</label>
+                                <select class="custom-select d-block w-100" id="protocol">
+                                        <option value="DASH" selected>MPEG-DASH</option>
+                                        <option value="HLS">HLS</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="video_quality">Video Quality</label>
+                                <select class="custom-select d-block w-100" id="video_quality" >
+                                        <option velue="480" selected>480p</option>
+                                        <option value="720">720p</option>
+                                        <option value="1080">1080p</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mt-3">
+                                <button id="button-load" type="button" class="btn btn-primary btn-lg btn-block">Load</button>
+                            </div>
+                        </div>
+                        <div class="row row-gr">
+                            <div class="input-group mb-3 ">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">External source</label>
+                                </div>
+                                <input id="input-mdp" type="text" class="form-control" value="https://bitmovin-a.akamaihd.net/content/playhouse-vr/mpds/105560.mpd"">
+                                <div class="input-group-append" id="button-addon4">
+                                    <button id="button-load-mdp" class="btn btn-outline-secondary" type="button">Load</button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <script src="./js/aframe.min.js"></script>
+            <script src="./js/hls.min.js"></script>
+            <script src="./js/dash.min.js"></script>
+            <script src="./js/jquery-3.4.1.min.js"></script>
+            <script src="./js/bootstrap.bundle.min.js"></script>
+            <script src="./js/feather.min.js"></script>
+            <script src="./js/index.js"></script>
+            <!-- <script src="./js/arrow-key-rotation.js"></script> -->
+        </footer>
+    </body>
+</html>
