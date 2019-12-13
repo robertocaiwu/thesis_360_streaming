@@ -1,0 +1,47 @@
+html {
+    height: 100%;
+}
+
+header {
+    height: 7%;
+}
+
+header>nav {
+    height: 100%;
+}
+
+body {
+    height: 93%;
+}
+
+#wrapper {
+    height: 100%;
+}
+
+.list-group {
+    padding: 15px 0 0 15px;
+}
+
+.page-content {
+    padding: 30px;
+    width: 95%;
+    height: 95%;
+}
+
+.row-gr{
+    max-width: 1280px;
+    width: 90%;
+    height: 90%;
+}
+
+video {
+    max-width: 1280px;
+    max-height: 720px;
+
+    width: 100%;
+}
+
+.aframebox {
+    width: 1280px;
+    height: 720px;
+}
