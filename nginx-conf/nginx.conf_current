@@ -1,0 +1,103 @@
+#user  rob;
+worker_processes  1;
+    
+error_log  logs/error.log debug;
+    
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server {
+        listen       8011;
+        server_name  localhost;
+        index index.html index.ejs;
+
+        location / {
+            root html/www;
+        }
+
+        # rtmp stat
+        location /stat {
+            rtmp_stat all;
+            rtmp_stat_stylesheet stat.xsl;
+        }
+        location /stat.xsl {
+            # you can move stat.xsl to a different location
+            root /tmp/nginx-stats/;
+        }
+
+        # rtmp control
+        location /control {
+            rtmp_control all;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        location /hls {
+            # Serve HLS fragments
+            types {
+                application/vnd.apple.mpegurl m3u8;
+                video/mp2t ts;
+            }
+            root /tmp;
+            add_header Cache-Control no-cache;
+        }
+
+        location /dash {
+            # Serve DASH fragments
+            root /tmp;
+            add_header Cache-Control no-cache;
+        }
+    }
+
+}
+
+rtmp {
+    server {
+        listen 1935;
+	    chunk_size 4096;
+
+        publish_time_fix off;
+
+        application hls {
+            live on;
+            record off;
+
+            hls on;
+            hls_path /tmp/hls;
+            hls_fragment 5s;
+            hls_playlist_length 1m;
+            hls_nested on;
+            hls_cleanup on;
+
+            hls_variant _low   BANDWIDTH=320000;
+            hls_variant _med   BANDWIDTH=320000;
+            hls_variant _high  BANDWIDTH=640000;
+        }
+
+        application dash {
+            live on;
+            dash on;
+            dash_path /tmp/dash;
+            dash_fragment 5s; 
+            dash_playlist_length 1m; 
+            dash_cleanup on;
+
+            # dash_clock_compensation http_head; 
+            # dash_clock_helper_uri http://time.akamai.com/?iso;
+
+            # dash_variant _low bandwidth="500000" width="640" height="360"; 
+	        # dash_variant _med bandwidth="1500000" width="1280" height="720"; 
+	        # dash_variant _high bandwidth="5000000" width="1920" height="1080" max;
+        }
+    }
+}
